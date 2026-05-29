@@ -1,0 +1,42 @@
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  include(config/db.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  include(config/db.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  include(): Failed opening 'config/db.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  include(config/session.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  include(config/session.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  include(): Failed opening 'config/session.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  Undefined variable $Role in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 5
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  Undefined variable $Company in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 11
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  Undefined variable $Branch in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 11
+[06-Feb-2025 11:11:55 UTC] PHP Warning:  Undefined variable $conn in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 12
+[06-Feb-2025 11:11:55 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/azuprawa/kesyacrm.com/manager/lead-add.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 12
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  include(config/db.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  include(config/db.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  include(): Failed opening 'config/db.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  include(config/session.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  include(config/session.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  include(): Failed opening 'config/session.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  Undefined variable $Role in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 5
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  Undefined variable $Company in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 11
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  Undefined variable $Branch in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 11
+[06-Feb-2025 11:11:59 UTC] PHP Warning:  Undefined variable $conn in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 12
+[06-Feb-2025 11:11:59 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/azuprawa/kesyacrm.com/manager/lead-add.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 12
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  include(config/db.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  include(config/db.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  include(): Failed opening 'config/db.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 2
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  include(config/session.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  include(config/session.php): Failed to open stream: No such file or directory in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  include(): Failed opening 'config/session.php' for inclusion (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 3
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  Undefined variable $Role in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 5
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  Undefined variable $Company in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 11
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  Undefined variable $Branch in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 11
+[06-Feb-2025 11:12:04 UTC] PHP Warning:  Undefined variable $conn in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 12
+[06-Feb-2025 11:12:04 UTC] PHP Fatal error:  Uncaught Error: Call to a member function query() on null in /home/azuprawa/kesyacrm.com/manager/lead-add.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/azuprawa/kesyacrm.com/manager/lead-add.php on line 12

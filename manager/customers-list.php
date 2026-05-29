@@ -1,0 +1,254 @@
+<?php
+include("../config/db.php");
+include("../config/session.php");
+include("../config/activities.php");
+include("../config/fornotification.php");
+
+############### Publish / Unpublish #################
+if (isset($_POST['publish'])) {
+    $customer_id = $_POST['customer_id'];
+    $new_status = ($_POST['publish'] == 'on' || $_POST['publish'] == '1') ? 1 : 0;
+    $updateStatusQuery = "UPDATE `leads` SET `lead_customer_status` = '$new_status', `lead_updatedby` = '$username' WHERE `id` = '$customer_id'";
+    $PublishBranch = mysqli_query($conn, $updateStatusQuery);
+
+    if ($PublishBranch) {
+        echo "<script>window.location.href='customers-list.php';</script>";
+    } else {
+        $error_message = mysqli_error($conn);
+        echo "<script>alert('Error: $error_message')</script>";
+    }
+}
+############### Publish / Unpublish #################
+
+
+############### customers Delete / Edit  #################
+if (isset($_POST['delete_customer'])) {
+    $customer_id = $_POST['customer_id'];
+    $lead_customer_name = $_POST['lead_customer_name'];
+    $deletecustomerQuery = "DELETE FROM `leads` WHERE `id` = '$customer_id'";
+    $checkDelete = mysqli_query($conn, $deletecustomerQuery);
+
+    ################# Push activity ################
+    $activity_id = $guid;
+    $activity_content = "Customer " . $lead_customer_name . " has been removed by manager " . $username . " of " . $Branch . " branch.";
+    $activity_type = 'Alert';
+    $activity_company = $Company;
+    $activity_branch = $Branch;
+    $activity_on = date('Y-m-d H:i:s');
+    $activity_by = $username;
+    $NewActivityAdd = "INSERT INTO `activities`(`activity_id`, `activity_content`, `activity_company`, `activity_branch`, `activity_type`, `activity_on`, `activity_by`) VALUES ('$activity_id','$activity_content','$activity_company','$activity_branch','$activity_type','$activity_on','$activity_by')";
+    $ApplyActivityQuery = mysqli_query($conn, $NewActivityAdd);
+    ################# Push activity ################
+
+    if ($checkDelete) {
+        echo "<script>window.location.href='customers-list.php'</script>";
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+} elseif (isset($_POST['edit_customer'])) {
+    $customer_id = $_POST['customer_id'];
+    echo "<script>window.location.href='customer-edit.php?id=$customer_id'</script>";
+    exit;
+}
+############### customers Delete / Edit  #################
+
+
+######### Fetch all customers from the database ##########
+$lead_list = "SELECT * FROM `leads` WHERE `lead_for_company` = '$Company' AND `lead_for_branch` = '$Branch' ORDER BY `id` DESC";
+$lead_list_result = $conn->query($lead_list);
+######### Fetch all customers from the database ##########
+
+?>
+
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title> Clients / Customers List </title>
+    <?php include("head.php"); ?>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- START Wrapper -->
+    <div class="wrapper">
+
+        <!-- ========== Topbar Start ========== -->
+        <?php include("topnav.php"); ?>
+        <!-- ========== Topbar End ========== -->
+
+        <!-- ========== App Menu Start ========== -->
+        <?php include("sidenav.php"); ?>
+        <!-- ========== App Menu End ========== -->
+
+        <!-- ==================================================== -->
+        <!-- Start right Content here -->
+        <!-- ==================================================== -->
+        <div class="page-content">
+            <div class="container-xxl">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="d-flex card-header justify-content-between align-items-center">
+                                <div>
+                                    <h4 class="card-title">Customers List</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="table-customer-search"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ==================================================== -->
+        <!-- End Page Content -->
+        <!-- ==================================================== -->
+
+        <!-- Footer -->
+        <?php include("../footer.php"); ?>
+
+    </div>
+    <!-- END Wrapper -->
+
+    <!-- Vendor Javascript (Require in all Page) -->
+    <script src="../assets/js/vendor.js"></script>
+
+    <!-- App Javascript (Require in all Page) -->
+    <script src="../assets/js/app.js"></script>
+
+    <!-- Grid Js -->
+    <script src="../assets/vendor/gridjs/gridjs.umd.js"></script>
+
+    <script>
+        // customer Table Data
+        const customerData = [
+            <?php
+            $counterValue = 1;
+            if ($counterValue <= $lead_list_result->num_rows) {
+                while ($lead = $lead_list_result->fetch_assoc()) { ?>[
+                        gridjs.html(`<?php echo $counterValue++; ?>`), // This increments the counter
+                        gridjs.html(`<?php echo $lead['lead_id']; ?>`),
+                        gridjs.html(`<?php echo $lead['lead_customer_name']; ?>`),
+                        gridjs.html(`<?php echo $lead['lead_customer_contact'] ?>`),
+                        gridjs.html(`<?php echo $lead['lead_alternate_contact'] ?>`),
+                        gridjs.html(`<?php echo $lead['lead_whatsapp']; ?>`),
+                        gridjs.html(`<?php echo $lead['lead_email']; ?>`),
+                        gridjs.html(`<?php echo $lead['lead_customer_gst']; ?>`),
+                        gridjs.html(`<?php echo $lead['lead_customer_cin']; ?>`),
+                        gridjs.html(`<?php echo $lead['lead_customer_type']; ?>`),
+
+                        gridjs.html(`
+                        <form action="#" method="post">
+                            <input type="hidden" name="customer_id" value="<?php echo $lead['id']; ?>">
+                            <input type="hidden" name="publish" value="0">
+                            <div class="form-check form-switch flex-box justify-content-center align-items-center">
+                                <input class="form-check-input" name="publish" type="checkbox" role="switch" id="flexSwitchCheckChecked<?php echo $lead['id']; ?>" <?php echo ($lead['lead_customer_status'] == 1) ? 'checked' : ''; ?> onchange="this.form.submit();">
+                            </div>
+                        </form>
+                        `),
+
+                        gridjs.html(`
+                        <div class="row gap-1">
+                            <div class="col-lg-5">
+                                <form action="#" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="customer_id" value="<?php echo $lead['id']; ?>">
+                                    <button type="submit" name="edit_customer" value="<?php echo $lead['id']; ?>" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></button>
+                                </form>
+                            </div>
+                            <div class="col-lg-5">
+                                <form action="#" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="customer_id" value="<?php echo $lead['id']; ?>">
+                                    <input type="hidden" name="lead_customer_name" value="<?php echo $lead['lead_customer_name']; ?>">
+                                    <button type="submit" name="delete_customer" value="<?php echo $lead['id']; ?>" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
+                                </form>
+                            </div>    
+                        </div>
+                    `)
+                    ],
+            <?php }
+            } ?>
+        ];
+
+        // Initialize Grid.js Table
+        if (document.getElementById("table-customer-search")) {
+            new gridjs.Grid({
+                columns: [{
+                        name: "So.No.",
+                        width: "50px"
+                    },
+                    {
+                        name: "Customer ID",
+                        width: "100px"
+                    },
+                    {
+                        name: "Customer Name",
+                        width: "100px"
+                    },
+                    {
+                        name: "Contact No.",
+                        width: "100px"
+                    },
+                    {
+                        name: "2nd Contact No.",
+                        width: "100px"
+                    },
+                    {
+                        name: "Whatsapp No.",
+                        width: "100px"
+                    },
+                    {
+                        name: "Email Id",
+                        width: "200px"
+                    },
+                    {
+                        name: "GST No.",
+                        width: "150px"
+                    },
+                    {
+                        name: "CIN No.",
+                        width: "150px"
+                    },
+                    {
+                        name: "Customer Type",
+                        width: "100px"
+                    },
+                    {
+                        name: "Status",
+                        width: "30px"
+                    },
+                    {
+                        name: "Actions",
+                        width: "100px"
+                    }
+                ],
+
+                pagination: {
+                    limit: 10
+                },
+
+                search: true,
+                data: customerData,
+                style: {
+                    table: {
+                        'min-width': '2000px',
+                        'font-size': '15px',
+                        'text-align': 'center',
+                    },
+                    th: {
+                        'background-color': '#ff6c2f',
+                        'color': '#fff'
+                    },
+                }
+            }).render(document.getElementById("table-customer-search"));
+        }
+    </script>
+
+</body>
+
+</html>
